@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datas</title>
+    <style>
+        body {font-family: arial; padding: 20px;}
+        label,input,button { display: block; margin: 10px 0;}
+    </style>
+</head>
+<body>
+    <h2>Formulario de data</h2>
+    <form id="dateForm">
+        <label for="aniversario">Data de  nascimento:</label>
+        <input type="date" id="aniversario" name="aniversario">
+        <button type="submit">Enviar</button>
+    </form>
+<div id="resultado"></div>
+
+<script>
+const forma = document.getElementById('dateForm');
+const resultado = document.getElementById('resultado')
+
+forma.addEventListener('submit', function(e) {
+e.preventDefault();
+const colocaData = document.getElementById('aniversario').value;
+if (!colocaData) {
+    resultado.textContent = "Por favor coloca uma data ae!";
+    return;
+}
+            
+
+const date = new Date(colocaData);
+date.setDate(date.getDate() + 1);
+// const opcao = { year: 'numeric', month: 'long', day: 'numeric' };
+// const dataformatad = date.toLocaleDateString('pt-BR',opcao)
+const dataformatade = date.toLocaleDateString('pt-BR');
+
+
+resultado.innerHTML = `
+ <p> Data selecionada: <strong>${dataformatade}</strong></p>
+ <p> Dia da semana : <strong>${date.toLocaleDateString('pt-BR', { weekday: 'long'},)}</strong></p>
+  <p> Horas : <strong>${date.getHours('pt-BR')}</strong></p>
+  <p> Minutos: <strong>${date.getMinutes('pt-BR')}</strong></p>
+`;
+})
+
+</script>
+
+</body>
+</html>

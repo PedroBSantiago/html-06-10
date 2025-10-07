@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo Idade</title>
+</head>
+<body>
+    <h2>Exercício: Calculando idade</h2>
+
+    <form id="formulario">
+        <label for="nascimento">Data de nascimento:</label>
+        <input type="date" id="nascimento">
+        <button type="submit">Calcular</button>
+    </form>
+
+    <p id="idadeResultado"></p>
+    <p>Data atual: <span id="data-atual"></span></p>
+
+    <script>
+
+        const dataAtual = new Date();
+        const dataFormatada = dataAtual.toLocaleDateString('pt-BR');
+        document.getElementById("data-atual").textContent = dataFormatada;
+
+        const formulario = document.getElementById('formulario');
+        const resultado = document.getElementById('idadeResultado');
+
+        formulario.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nascimentoStr = document.getElementById('nascimento').value;
+            if (!nascimentoStr) {
+                resultado.textContent = "Por favor, coloque uma data!";
+                return;
+            }
+
+            const nascimento = new Date(nascimentoStr);
+            const hoje = new Date();
+            nascimento.setDate(nascimento.getDate() + 1)
+
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const mesAtual = hoje.getMonth();
+            const diaAtual = hoje.getDate();
+
+            const mesNascimento = nascimento.getMonth();
+            const diaNascimento = nascimento.getDate();
+            if (
+                mesAtual < mesNascimento ||
+                (mesAtual === mesNascimento && diaAtual < diaNascimento)
+            ) {
+                idade--;
+            }
+
+            const dataFormatadaNascimento = nascimento.toLocaleDateString('pt-BR');
+
+            resultado.innerHTML = `
+                <p>Data selecionada: <strong>${dataFormatadaNascimento}</strong></p>
+                <p>Sua idade é: <strong>${idade}</strong> anos</p>
+            `;
+        });
+    </script>
+</body>
+</html>

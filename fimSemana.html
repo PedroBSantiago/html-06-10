@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fim de semana</title>
+</head>
+<body>
+    <h2>Exercício 2 : É fim de semana? </h2>
+
+    <label for="data">coloca a data: </label>
+    <input type="date" id="data">
+    <button onclick="verificarFimDeSemana()">click</button>
+    
+    <script>
+    function verificarFimDeSemana() {
+        const input = document.getElementById('data');
+        const valor = input.value;
+        if (!valor) {
+            alert('Selecione uma data.');
+            return;
+        }
+        const data = new Date(valor);
+        const fimSemana = data.getDay();
+        if (fimSemana === 5 || fimSemana === 6) {
+            alert('É fim de semana!');
+        } else {
+            alert('Não é fim de semana.');
+        }
+    }
+    </script>
+</body>
+</html>
